@@ -46,4 +46,4 @@ Her `main` dalına yapılan `git push` işlemi, Render tarafından otomatik olar
 ### 🔗 Faydalı Bağlantılar
 
 * **Codexia Ana GitHub Organizasyonu:** https://github.com/CodexiaTechHQ
-* **Web Güvenlik Kontrol Listemiz:** [Checklist Reposuna Link Gelecek]
+* **Web Güvenlik Kontrol Listemiz:** https://github.com/CodexiaTechHQ/Web-Security-Checklist
