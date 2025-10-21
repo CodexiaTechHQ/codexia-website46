@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codexia: Güvenli ve Akıllı Çözümlerin Merkezi</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      /* Codexia Teması: Koyu Arkaplan, Turkuaz Vurgu */
+      body {
+        background-color: #0d1a26; /* Koyu Mavi/Lacivert */
+        color: #f8f9fa; /* Açık Beyaz */
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .container {
+        max-width: 700px;
+      }
+      .logo-text {
+        color: #4dd0e1; /* Turkuaz Vurgu */
+        font-weight: 700;
+        font-size: 2.5rem;
+      }
+      .countdown span {
+        display: inline-block;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ff9800; /* Turuncu Vurgu */
+        margin: 0 10px;
+      }
+      .cta-button {
+        background-color: #4dd0e1;
+        border: none;
+        color: #0d1a26;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5">
+      <h1 class="logo-text mb-4">Codexia</h1>
+      <h2 class="display-5 fw-bold text-white">Sitemiz Yakında Yayında!</h2>
+      <p class="lead mb-4">
+        Dijital varlıklarınızın Siber Güvenlik Mimarisi ve Yapay Zeka (AI)
+        Entegrasyonu ile güçlendirildiği çözümler kuruluyor.
+      </p>
+      <div class="countdown my-5">
+        <p class="text-white-50 fs-6 mb-1">LANSMANA KALAN SÜRE:</p>
+        <div id="countdown-timer">
+          <span id="days">00</span>g <span id="hours">00</span>s
+          <span id="minutes">00</span>d <span id="seconds">00</span>s
+        </div>
+      </div>
+
+      <p class="mt-4">
+        Gelişmelerden anında haberdar olmak veya projeleriniz için şimdi
+        iletişime geçmek ister misiniz?
+      </p>
+      <a href="mailto:selim.cinar@codexia.com" class="btn cta-button btn-lg"
+        >Şimdi İletişime Geçin</a
+      >
+
+      <div class="mt-5">
+        <p class="text-white-50">Profesyonel Kanallarımız:</p>
+        <a
+          href="https://github.com/CodexiaTechHQ"
+          target="_blank"
+          class="text-white mx-3"
+          aria-label="Codexia GitHub Organizasyonu"
+          ><i class="fab fa-github fa-2x"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/company/109681193"
+          target="_blank"
+          class="text-white mx-3"
+          aria-label="Codexia LinkedIn Şirket Sayfası"
+          ><i class="fab fa-linkedin fa-2x"></i
+        ></a>
+        <a
+          href="https://www.youtube.com/@CodexiaTech"
+          target="_blank"
+          class="text-white mx-3"
+          aria-label="Codexia YouTube Kanalı"
+          ><i class="fab fa-youtube fa-2x"></i
+        ></a>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const launchDate = new Date("November 21, 2025 10:00:00").getTime();
+
+      const x = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // HTML'e yazma
+        document.getElementById("days").innerHTML = String(days).padStart(
+          2,
+          "0"
+        );
+        document.getElementById("hours").innerHTML = String(hours).padStart(
+          2,
+          "0"
+        );
+        document.getElementById("minutes").innerHTML = String(minutes).padStart(
+          2,
+          "0"
+        );
+        document.getElementById("seconds").innerHTML = String(seconds).padStart(
+          2,
+          "0"
+        );
+
+        // Sayaç bittiğinde
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("countdown-timer").innerHTML =
+            "SİTE YAYINDA!";
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
