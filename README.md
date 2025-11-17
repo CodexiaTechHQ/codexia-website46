@@ -1,49 +1,63 @@
-# 🌐 Codexia "Çok Yakında" Landing Page
 
-Bu depo, Codexia'nın ana kurumsal web sitesi yayına girene kadar kullanılan, **güvenli ve profesyonel** "Çok Yakında" açılış sayfasının (Landing Page) kaynak kodunu içerir.
 
-Bu sayfa, markamızın odağını (Siber Güvenlik, Yapay Zeka, Web Çözümleri) vurgulamak ve potansiyel müşterileri sosyal ve profesyonel kanallarımıza yönlendirmek amacıyla oluşturulmuştur.
+## 🚀 Codexia Landing Page
 
-## 🚀 Teknik Detaylar
+Bu proje, bir ürün veya hizmet için geri sayım sayacı ve iletişim (teklif toplama) formu içeren, Python Flask tabanlı, modern bir **Landing Page** uygulamasıdır. Gelen tüm teklifler, sunucu yeniden başlasa bile kaybolmayacak şekilde kalıcı olarak saklanır.
 
-Bu proje, basitliği ve hızlı dağıtımı (deployment) sağlamak için aşağıdaki teknolojilerle geliştirilmiştir:
+-----
 
-* **Backend/Server:** **Python 3** ve **Flask** (Minimalist web çatısı)
-* **Deployment:** **Render** (Ücretsiz plan ile sürekli dağıtım)
-* **Web Sunucusu:** **Gunicorn** (Üretim ortamı için)
-* **Frontend:** HTML5, CSS3, **Bootstrap 5** (Tasarım), Minimal **JavaScript** (Geri sayım sayacı için)
+## ✨ Özellikler
 
-## 💾 Yerel Kurulum (Local Setup)
+  * **Geri Sayım Sayacı:** Lansman tarihine kalan süreyi dinamik olarak gösterir.
+  * **Kalıcı Veri Depolama:** Kullanıcılardan gelen mesajlar, **SQLite** veritabanı (Flask-SQLAlchemy aracılığıyla) kullanılarak kalıcı olarak saklanır.
+  * **Teklif Formu:** Kullanıcı adını, e-postasını ve hizmet talebi mesajını toplayarak veritabanına kaydeder.
+  * **Teknolojiler:** Python, Flask, Flask-SQLAlchemy, Bootstrap 5.
 
-Bu projeyi yerel makinenizde çalıştırmak isterseniz:
+-----
 
-1.  Depoyu klonlayın:
-    ```bash
-    git clone [REPO LİNKİ BURAYA GELECEK]
-    cd codexia-landing-page
-    ```
-2.  Gerekli Python kütüphanelerini kurun:
-    ```bash
-    pip install -r requirements.txt
-    ```
-3.  Uygulamayı başlatın:
-    ```bash
-    python app.py
-    ```
-4.  Tarayıcınızda `http://127.0.0.1:5000` adresine giderek siteyi görüntüleyin.
+## ⚙️ Kurulum ve Çalıştırma
 
-## ☁️ Dağıtım (Deployment) Bilgisi
+Projeyi yerel olarak çalıştırmak için aşağıdaki adımları izleyin.
 
-Uygulama, Render platformunda aşağıdaki komutlarla sürekli dağıtım (Continuous Deployment) kullanılarak yayınlanmaktadır:
+### 1\. Ortamın Hazırlanması
 
-* **Build Command:** `pip install -r requirements.txt`
-* **Start Command:** `gunicorn app:app`
+Projeyi klonlayın ve dizine gidin:
 
-Her `main` dalına yapılan `git push` işlemi, Render tarafından otomatik olarak algılanır ve site güncellenir.
+```bash
+git clone [REPOSITORY_URL]
+cd codexia-landing-page
+```
 
----
+### 2\. Bağımlılıkları Yükleme
 
-### 🔗 Faydalı Bağlantılar
+Sanal ortam oluşturun, etkinleştirin ve gerekli kütüphaneleri yükleyin.
 
-* **Codexia Ana GitHub Organizasyonu:** https://github.com/CodexiaTechHQ
-* **Web Güvenlik Kontrol Listemiz:** https://github.com/CodexiaTechHQ/Web-Security-Checklist
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS için
+# .venv\Scripts\activate # Windows için
+
+pip install -r requirements.txt
+```
+
+> **Not:** `requirements.txt` dosyanızda **`Flask-SQLAlchemy`** kütüphanesinin bulunduğundan emin olun.
+
+### 3\. Gizli Anahtarı Ayarlama
+
+Flask'ın oturum yönetimi için bir gizli anahtar (`SECRET_KEY`) tanımlamanız zorunludur.
+
+```bash
+# Terminalde ayarlama (Geçici)
+export SECRET_KEY="Sizin_cok_gizli_ve_benzersiz_bir_anahtarınız"
+```
+
+### 4\. Uygulamayı Başlatma
+
+Uygulama çalıştırıldığında, veritabanı tabloları (`site.db` dosyası) otomatik olarak oluşturulur.
+
+```bash
+python app.py
+```
+
+Uygulamanız artık `http://127.0.0.1:5000` adresinde çalışıyor olmalıdır. Gelen form verileri **güvenle** veritabanına kaydedilecektir.
+
