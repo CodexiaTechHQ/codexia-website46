@@ -1,34 +1,65 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-import os # Ortam değişkenlerini okumak için eklendi
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+import os 
 
+# --- UYGULAMA VE VERİTABANI KONFİGÜRASYONU ---
 app = Flask(__name__)
 
-# --- GÜVENLİK AYARLARI VE ORTAM DEĞİŞKENLERİ ---
-# Güvenlik, oturumlar ve flash mesajları için zorunludur.
-# 'SECRET_KEY' ortam değişkeninden oku, yoksa yedek değer kullan.
+# Şifreler ve anahtar ortam değişkenlerinden okunur
 app.secret_key = os.environ.get('SECRET_KEY', 'cok_gizli_ve_uzun_bir_sifre_buraya_gelecek_12345') 
+ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin') 
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'codexia_master') 
 
-# Admin kimlik bilgileri ortam değişkenlerinden okunur.
-# os.environ.get() ile bu değerler doğrudan Python dosyasında sabit kodlanmaktan kurtulur.
-ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin') # Yedek değer 'admin'
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'codexia_master') # Yedek değer 'codexia_master'
+# SQLite veritabanı dosyasının konumu: Uygulama kök dizininde site.db
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# --- VERİTABANI MODELİ: Teklif Talepleri ---
+class ContactRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    service = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"ContactRequest('{self.name}', '{self.email}')"
+
+# Uygulama bağlamı içinde veritabanı tablolarını oluştur (Uygulama ilk kez çalıştırıldığında)
+with app.app_context():
+    db.create_all()
 
 # --- ROTLAR ---
 
 @app.route('/')
 def index():
-    # Ana sayfa
     return render_template('index.html')
 
-# --- İLETİŞİM FORMU ROTASI ---
+# --- İLETİŞİM FORMU ROTASI (Veriyi Kalıcı Olarak Kaydeder) ---
 @app.route('/api/contact', methods=['POST'])
 def handle_contact_form():
     name = request.form.get('name')
     email = request.form.get('email')
     service = request.form.get('service')
-    # message değişkeni alınırken hata yok, sadece düzenlenmiş kısmı dahil ettim.
+    message = request.form.get('message')
     
-    flash(f'Yeni Teklif Talebi alındı! İlgili Alan: {service}. Gönderen: {name}', 'success')
+    # Yeni ContactRequest nesnesi oluştur
+    new_request = ContactRequest(
+        name=name,
+        email=email,
+        service=service,
+        message=message
+    )
+    
+    # Veritabanına ekle ve kaydet (Commit)
+    db.session.add(new_request)
+    db.session.commit()
+    
+    flash(f'Yeni Teklif Talebi başarıyla alındı. En kısa sürede size dönüş yapacağız!', 'success')
     
     return redirect(url_for('index'))
 
@@ -41,24 +72,28 @@ def admin_login():
 
         if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
             session['logged_in'] = True
-            flash('Giriş başarılı!', 'success')
+            flash('Admin Paneline Giriş başarılı!', 'success') 
             return redirect(url_for('admin_dashboard'))
         else:
-            flash('Hatalı kullanıcı adı veya şifre.', 'error')
+            flash('Hatalı kullanıcı adı veya şifre.', 'error') 
             
     if session.get('logged_in'):
         return redirect(url_for('admin_dashboard'))
             
     return render_template('admin_login.html')
 
-# --- ADMIN DASHBOARD ROTASI ---
+# --- ADMIN DASHBOARD ROTASI (Veritabanından Mesajları Çeker) ---
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if not session.get('logged_in'):
         flash('Bu sayfaya erişmek için giriş yapmalısınız.', 'error')
         return redirect(url_for('admin_login'))
-        
-    return render_template('admin_dashboard.html')
+    
+    # Veritabanından tüm talepleri en yeni olandan eskiye doğru (timestamp ile) çeker
+    requests = ContactRequest.query.order_by(ContactRequest.timestamp.desc()).all()
+    
+    # Template'e gönderir
+    return render_template('admin_dashboard.html', requests=requests)
 
 # --- ÇIKIŞ ROTASI ---
 @app.route('/admin/logout')
@@ -68,5 +103,4 @@ def admin_logout():
     return redirect(url_for('admin_login'))
 
 if __name__ == '__main__':
-    # Yerel çalıştırmada debug modunu kullanır
     app.run(debug=True)
