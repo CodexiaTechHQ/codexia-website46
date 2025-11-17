@@ -6,6 +6,7 @@
     <title>Codexia | Admin Girişi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
+        /* Genel Tema Stilleri */
         body {
             background-color: #0d1a26; /* Koyu Lacivert */
             color: #f8f9fa;
@@ -15,11 +16,27 @@
             align-items: center;
             justify-content: center;
         }
+        /* Giriş Kartı Stili */
         .login-card {
             background-color: #1a2c3a;
             border: 1px solid #4dd0e1;
             box-shadow: 0 0 30px rgba(77, 208, 225, 0.2);
         }
+        
+        /* 🔥 GÜNCELLENDİ: Giriş Alanlarını Daha Belirgin Yapma */
+        .form-control {
+            background-color: #274154; /* Karttan daha açık bir arka plan */
+            border: 1px solid #4dd0e1;
+            color: #f8f9fa; /* Yazı rengi */
+        }
+        .form-control:focus {
+            background-color: #274154;
+            color: #f8f9fa;
+            border-color: #79e9f8; /* Seçildiğinde açık turkuaz sınır */
+            box-shadow: 0 0 0 0.25rem rgba(77, 208, 225, 0.4);
+        }
+        
+        /* Özelleştirilmiş Giriş Butonu */
         .btn-custom {
             background-color: #4dd0e1;
             border: none;
@@ -29,6 +46,10 @@
         .btn-custom:hover {
             background-color: #79e9f8;
             color: #0d1a26;
+        }
+        /* Form Etiketleri için beyaz renk */
+        .form-label {
+            color: #ccc;
         }
     </style>
 </head>
@@ -62,7 +83,7 @@
                             <button type="submit" class="btn btn-custom w-100">Giriş Yap</button>
                         </form>
                         
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
