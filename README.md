@@ -7,8 +7,6 @@ Bu proje, bir ürün veya hizmet için geri sayım sayacı ve iletişim (teklif 
 -----
 
 ## ✨ Özellikler
-
-  * **Geri Sayım Sayacı:** Lansman tarihine kalan süreyi dinamik olarak gösterir.
   * **Kalıcı Veri Depolama:** Kullanıcılardan gelen mesajlar, **SQLite** veritabanı (Flask-SQLAlchemy aracılığıyla) kullanılarak kalıcı olarak saklanır.
   * **Teklif Formu:** Kullanıcı adını, e-postasını ve hizmet talebi mesajını toplayarak veritabanına kaydeder.
   * **Teknolojiler:** Python, Flask, Flask-SQLAlchemy, Bootstrap 5.
