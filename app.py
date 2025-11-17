@@ -24,14 +24,13 @@ class ContactRequest(db.Model):
     email = db.Column(db.String(120), nullable=False)
     service = db.Column(db.String(100), nullable=False)
     message = db.Column(db.Text, nullable=False)
+    # Varsayılan değer olarak UTC zamanı kullanıldı
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
         return f"ContactRequest('{self.name}', '{self.email}')"
 
-# Uygulama bağlamı içinde veritabanı tablolarını oluştur (Uygulama ilk kez çalıştırıldığında)
-with app.app_context():
-    db.create_all()
+# db.create_all() komutu, sadece yerel çalıştırmada çağrılmak üzere kaldırıldı.
 
 # --- ROTLAR ---
 
@@ -47,7 +46,6 @@ def handle_contact_form():
     service = request.form.get('service')
     message = request.form.get('message')
     
-    # Yeni ContactRequest nesnesi oluştur
     new_request = ContactRequest(
         name=name,
         email=email,
@@ -55,7 +53,6 @@ def handle_contact_form():
         message=message
     )
     
-    # Veritabanına ekle ve kaydet (Commit)
     db.session.add(new_request)
     db.session.commit()
     
@@ -89,10 +86,8 @@ def admin_dashboard():
         flash('Bu sayfaya erişmek için giriş yapmalısınız.', 'error')
         return redirect(url_for('admin_login'))
     
-    # Veritabanından tüm talepleri en yeni olandan eskiye doğru (timestamp ile) çeker
     requests = ContactRequest.query.order_by(ContactRequest.timestamp.desc()).all()
     
-    # Template'e gönderir
     return render_template('admin_dashboard.html', requests=requests)
 
 # --- ÇIKIŞ ROTASI ---
@@ -103,4 +98,7 @@ def admin_logout():
     return redirect(url_for('admin_login'))
 
 if __name__ == '__main__':
+    # Veritabanı tablolarını sadece ana Python dosyasından çalıştırıldığında oluştur
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
