@@ -22,7 +22,7 @@ Projeyi yerel olarak çalıştırmak için aşağıdaki adımları izleyin.
 Projeyi klonlayın ve dizine gidin:
 
 ```bash
-git clone [REPOSITORY_URL]
+git clone [[REPOSITORY_URL]](https://github.com/CodexiaTechHQ/codexia-landing-page)
 cd codexia-landing-page
 ```
 
