@@ -1,323 +1,290 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en"> <!-- Global pazar için varsayılanı İngilizce yapıyoruz -->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Codexia | Dijital Dönüşüm ve Akıllı Çözümler</title>
+    <title>Codexia | Architecture of Digital Innovation</title>
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Custom Desktop (PyQt), Web (Flask) and AI solutions. Codexia codes your business future.">
+    
+    <!-- Bootstrap & Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --codexia-dark: #0d1a26; /* Koyu Lacivert */
-            --codexia-primary: #4dd0e1; /* Turkuaz Vurgu */
-            --codexia-accent: #ff9800; /* Turuncu Aksan */
+            --bg-dark: #080c10;
+            --card-bg: rgba(26, 44, 58, 0.4);
+            --accent-blue: #4dd0e1;
+            --accent-orange: #ff9800;
+            --text-main: #f8f9fa;
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
+
         body {
-            background-color: var(--codexia-dark);
-            color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        /* Navbar */
+
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* Modern Glass Navbar */
         .navbar {
-            background-color: rgba(13, 26, 38, 0.9); /* Yarı saydam koyu */
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: rgba(8, 12, 16, 0.8) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
         }
+
         .logo-text {
-            color: var(--codexia-primary);
+            color: var(--accent-blue) !important;
             font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
         }
-        .nav-link {
-            color: #ccc !important;
-        }
-        .nav-link:hover {
-            color: var(--codexia-primary) !important;
-        }
-        /* Hero Section */
+
+        /* Hero Section with Animated Gradient */
         .hero-section {
-            min-height: 90vh;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at top right, rgba(77, 208, 225, 0.1), transparent),
+                        radial-gradient(circle at bottom left, rgba(255, 152, 0, 0.05), transparent);
+        }
+
+        .hero-title {
+            font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Service Cards (Glassmorphism) */
+        .service-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px rgba(77, 208, 225, 0.1);
+            background: rgba(26, 44, 58, 0.6);
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(77, 208, 225, 0.1);
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background-image: linear-gradient(135deg, rgba(13, 26, 38, 0.98), rgba(0, 0, 0, 0.7)), url('https://placehold.co/1920x1080/0d1a26/4dd0e1/gif?text=CODEXIA+BACKGROUND');
-            background-size: cover;
-            background-position: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent-blue);
+            font-size: 1.8rem;
         }
-        .cta-button {
-            background-color: var(--codexia-primary);
+
+        /* Modern Inputs */
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            border-radius: 12px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-blue);
+            color: #fff;
+            box-shadow: none;
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background: var(--accent-blue);
+            color: var(--bg-dark);
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 12px 30px;
             border: none;
-            color: var(--codexia-dark);
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: 0.3s;
         }
-        .cta-button:hover {
-            background-color: #79e9f8;
-            transform: scale(1.05);
+
+        .btn-primary-custom:hover {
+            background: #fff;
+            transform: scale(1.02);
         }
-        /* Hizmet Kartları */
-        .service-card, .solution-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-            background-color: #1a2c3a; 
-            min-height: 250px;
+
+        footer {
+            border-top: 1px solid var(--glass-border);
+            background: #040608;
         }
-        .service-card:hover, .solution-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(77, 208, 225, 0.3);
-            border-color: var(--codexia-primary);
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
         }
-        /* Animasyon */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 1s ease-out;
-        }
-        /* Flash Mesajları için stil */
-        .flash-alert-fixed {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1050;
-            max-width: 350px;
+
+        .social-link:hover {
+            background: var(--accent-blue);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
         }
     </style>
 </head>
 <body>
-    
-    <div class="flash-alert-fixed">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    </div>
 
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand logo-text" href="#">Codexia</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#hizmetler">Hizmetler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#teknolojiler">Uzmanlık</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#gelecek">Yol Haritası</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#iletisim">İletişim</a>
-                    </li>
-                    <li class="nav-item ms-lg-3">
-                        <a class="btn btn-outline-light btn-sm" href="{{ url_for('admin_login') }}">Admin</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="hero-section">
-        <div class="container py-5 animate-fade-in">
-            <h2 class="display-3 fw-bold text-white mb-4">İş Akışlarınızı Kodluyoruz.</h2>
-            <p class="lead mb-5 text-white-75">
-                PyQt ile masaüstü, Flask ile web ve özel tasarımlarla mobil çözümlerinizde, güvenilirliğe ve performansa odaklanıyoruz.
-            </p>
-            <a href="#hizmetler" class="btn btn-outline-light btn-lg me-3">Hizmetlerimizi Keşfet</a>
-            <a href="#iletisim" class="btn cta-button btn-lg">Projenizi Başlatalım</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand logo-text" href="#">CODEXIA</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto gap-lg-3">
+                <li class="nav-item"><a class="nav-link" href="#services">Solutions</a></li>
+                <li class="nav-item"><a class="nav-link" href="#stack">Stack</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item"><a class="btn btn-outline-info btn-sm px-3" href="/admin">Portal</a></li>
+            </ul>
         </div>
     </div>
+</nav>
 
-    <section id="hizmetler" class="py-5 py-md-5 bg-dark text-center">
-        <div class="container animate-fade-in">
-            <h3 class="display-6 fw-bold mb-4 text-white">Temel Çözüm Alanlarımız</h3>
-            <p class="mb-5 text-white-50">Kurumsal gereksinimlerinizden e-ticaret altyapınıza kadar, her aşamada yanınızdayız.</p>
-            <div class="row g-4">
-                
-                <div class="col-md-4">
-                    <div class="card p-4 service-card h-100">
-                        <i class="fas fa-building fa-3x mb-3 text-primary"></i>
-                        <h5 class="card-title fw-bold">Kurumsal & KOBİ Destek</h5>
-                        <p class="card-text text-white-50">Özel KOBİ destek ve yönetim sistemleri, iç iletişim portalları ve dijital dönüşüm çözümleri.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="card p-4 service-card h-100">
-                        <i class="fas fa-shopping-cart fa-3x mb-3 text-accent"></i>
-                        <h5 class="card-title fw-bold">E-Ticaret Altyapıları</h5>
-                        <p class="card-text text-white-50">Hızlı, güvenli ve ölçeklenebilir e-ticaret siteleri, API entegrasyonları ve pazar yeri çözümleri.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="card p-4 service-card h-100">
-                        <i class="fas fa-mobile-alt fa-3x mb-3 text-info"></i>
-                        <h5 class="card-title fw-bold">Mobil Uygulama Tasarımı</h5>
-                        <p class="card-text text-white-50">Kullanıcı deneyimini (UX) merkeze alan, etkileyici ve akıcı mobil arayüz tasarımları.</p>
-                    </div>
+<!-- Hero Section -->
+<header class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="hero-title">Engineering The <br>Digital Future.</h1>
+                <p class="lead text-white-50 mb-5 fs-5">
+                    Premium desktop automation with PyQt, scalable web architectures with Flask, and AI-driven growth for global enterprises.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#contact" class="btn btn-primary-custom">Start a Project</a>
+                    <a href="#services" class="btn btn-outline-light rounded-3 px-4">View Expertise</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</header>
 
-    <section id="teknolojiler" class="py-5 py-md-5 bg-white text-dark">
-        <div class="container animate-fade-in">
-            <h3 class="display-6 fw-bold mb-5 text-center text-dark">Platform Uzmanlığımız</h3>
-            
-            <div class="row align-items-center mb-5 pb-5 border-bottom">
-                <div class="col-md-6 order-md-1">
-                    <i class="fas fa-desktop fa-4x mb-3 text-secondary"></i>
-                    <h4 class="fw-bold mb-3">Python & PyQt ile Masaüstü Çözümleri</h4>
-                    <p class="text-muted">
-                        Yüksek performans ve güvenilirlik gerektiren kurum içi uygulamalar için **Python PyQt** kullanıyoruz. **Library Desk** benzeri kompleks veri yönetimi ve otomasyon projelerinde uzmanız. Uygulamalarınızın tüm kontrolünü elinizde tutun.
-                    </p>
-                    <span class="badge bg-secondary me-2">PyQt</span>
-                    <span class="badge bg-secondary me-2">Python</span>
-                    <span class="badge bg-secondary">Veri Yönetimi</span>
-                </div>
-                <div class="col-md-6 order-md-0 mt-4 mt-md-0">
-                    <img src="https://placehold.co/600x400/ccc/0d1a26?text=PyQt+Uygulama+Ekran+Görünümü Güncellenecek sonra" class="img-fluid rounded shadow-lg" alt="PyQt Masaüstü Uygulaması">
+<!-- Services Section -->
+<section id="services" class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h6 class="text-info fw-bold text-uppercase">What We Offer</h6>
+            <h2 class="display-5 fw-bold">Core Capabilities</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="icon-box"><i class="fas fa-microchip"></i></div>
+                    <h4 class="fw-bold">Desktop Systems</h4>
+                    <p class="text-white-50">Advanced PyQt/Python automation for local high-performance data management.</p>
                 </div>
             </div>
-
-            <div class="row align-items-center">
-                <div class="col-md-6 order-md-0">
-                    <img src="https://placehold.co/600x400/4dd0e1/0d1a26?text=Flask+Web+Arayüzü Güncellenecek sonra" class="img-fluid rounded shadow-lg" alt="Flask Web Uygulaması">
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="icon-box" style="color:var(--accent-orange); background:rgba(255,152,0,0.1)"><i class="fas fa-layer-group"></i></div>
+                    <h4 class="fw-bold">Web Ecosystems</h4>
+                    <p class="text-white-50">Robust Flask backends designed for global scale and security.</p>
                 </div>
-                <div class="col-md-6 order-md-1 mt-4 mt-md-0">
-                    <i class="fas fa-globe fa-4x mb-3 text-primary"></i>
-                    <h4 class="fw-bold mb-3">Flask ile Ölçeklenebilir Web Çözümleri</h4>
-                    <p class="text-muted">
-                        Hafif, hızlı ve güvenli web uygulamaları, API servisleri ve kurumsal paneller oluşturmak için **Python Flask** çatısını tercih ediyoruz. Hızlı dağıtım (deployment) ve kolay bakım avantajlarından yararlanın.
-                    </p>
-                    <span class="badge bg-primary me-2">Flask</span>
-                    <span class="badge bg-primary me-2">API Geliştirme</span>
-                    <span class="badge bg-primary">Hızlı Dağıtım</span>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="icon-box" style="color:#4caf50; background:rgba(76,175,80,0.1)"><i class="fas fa-brain"></i></div>
+                    <h4 class="fw-bold">AI Integration</h4>
+                    <p class="text-white-50">Smart automation and machine learning models to boost operational speed.</p>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <section id="gelecek" class="py-5 py-md-5 bg-dark">
-        <div class="container animate-fade-in">
-            <h3 class="display-6 fw-bold mb-4 text-center text-white">Yakın Gelecekteki Uzmanlık Alanlarımız</h3>
-            <p class="text-center text-white-50 mb-5">
-                Mevcut hizmetlerimize ek olarak, önümüzdeki 7 ay içinde portföyümüze katacağımız en son teknolojiler.
-            </p>
-            <div class="row g-4">
-                
-                <div class="col-md-4">
-                    <div class="card p-4 solution-card h-100 text-center">
-                        <i class="fas fa-lock fa-3x mb-3 text-danger"></i>
-                        <h5 class="card-title fw-bold text-white">İleri Düzey Siber Güvenlik</h5>
-                        <p class="card-text text-white-50">
-                            Proaktif zafiyet taraması, sızma testleri ve tam zamanlı dijital varlık koruma mimarisi.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="card p-4 solution-card h-100 text-center">
-                        <i class="fas fa-robot fa-3x mb-3 text-warning"></i>
-                        <h5 class="card-title fw-bold text-white">Yapay Zeka (AI) ve Otomasyon</h5>
-                        <p class="card-text text-white-50">
-                            Makine öğrenimi, derin öğrenme ve iş süreçleri için akıllı otomasyon entegrasyonları.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="card p-4 solution-card h-100 text-center">
-                        <i class="fas fa-gamepad fa-3x mb-3 text-success"></i>
-                        <h5 class="card-title fw-bold text-white">Profesyonel Oyun Geliştirme</h5>
-                        <p class="card-text text-white-50">
-                            Mobil ve PC platformları için konseptten yayına kadar yaratıcı ve teknik oyun geliştirme.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
-    <section id="iletisim" class="py-5 py-md-5 bg-light text-dark">
-        <div class="container animate-fade-in">
-            <h3 class="display-6 fw-bold mb-4 text-center">Projenizi Konuşalım</h3>
-            <p class="text-center text-muted mb-5">İhtiyaçlarınızı bize iletin, size özel çözüm önerimizle en kısa sürede dönüş yapalım.</p>
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="p-4 rounded shadow bg-white">
-                        <form id="contactForm" class="row g-3" method="POST" action="/api/contact">
-                            
-                            <input type="hidden" name="actionType" value="contact_request_main_site">
-                            
-                            <div class="col-md-6">
-                                <input type="text" id="name" name="name" placeholder="Adınız Soyadınız / Firma Adı" class="form-control p-3" required>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="email" id="email" name="email" placeholder="E-posta Adresiniz" class="form-control p-3" required>
-                            </div>
-                            <div class="col-12">
-                                <select id="service" name="service" class="form-select p-3" required>
-                                    <option value="">İlgilendiğiniz Hizmet Alanı</option>
-                                    <option value="desktop">Masaüstü Uygulama (PyQt)</option>
-                                    <option value="web">Web Çözümleri (Flask)</option>
-                                    <option value="mobile">Mobil Tasarım</option>
-                                    <option value="future">Gelecek Çözümler (AI/Güvenlik/Oyun)</option>
-                                    <option value="general">Genel Soru</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <textarea id="message" name="message" rows="4" placeholder="Projenizi kısaca anlatın..." class="form-control p-3" required></textarea>
-                            </div>
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn cta-button btn-lg px-5 mt-3">Teklif Talep Et</button>
-                            </div>
-                        </form>
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+    <div class="container py-5">
+        <div class="service-card border-0 p-lg-5">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <h2 class="fw-bold mb-4">Let's Build <br>Something Great.</h2>
+                    <p class="text-white-50 mb-4">Ready to upgrade your workflow? Our team is standing by to architect your solution.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-paper-plane text-info me-3"></i>
+                        <span>codexiatechhq@gmail.com</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-phone text-info me-3"></i>
+                        <span>+90 (531) 383 00 02</span>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <form action="/api/contact" method="POST" class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" name="name" class="form-control p-3" placeholder="Full Name" required>
                         </div>
+                        <div class="col-md-6">
+                            <input type="email" name="email" class="form-control p-3" placeholder="Email Address" required>
+                        </div>
+                        <div class="col-12">
+                            <select name="service" class="form-select p-3" required>
+                                <option value="">Select Service</option>
+                                <option value="desktop">Desktop Software</option>
+                                <option value="web">Web Development</option>
+                                <option value="ai">AI & Automation</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <textarea name="message" class="form-control p-3" rows="4" placeholder="Briefly describe your vision..." required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary-custom w-100">Send Proposal Request</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            
-            <div class="mt-5 pt-3 text-center">
-                 <h4 class="fw-bold mb-3">Doğrudan İletişim</h4>
-                 <p class="mb-1"><i class="fas fa-envelope text-primary me-2"></i> codexiatechhq@gmail.com</p>
-                 <p><i class="fas fa-phone text-primary me-2"></i> +90 (531) 383 00 02 </p>
-            </div>
-
         </div>
-    </section>
+    </div>
+</section>
 
-  <footer class="text-center py-4 bg-black">
-        <div class="container">
-            <div class="d-flex justify-content-center gap-4 mb-3">
-                <a href="https://github.com/CodexiaTechHQ" target="_blank" class="text-white mx-3 fs-3"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/company/109681193" target="_blank" class="text-white mx-3 fs-3"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/codexiatechhq/" target="_blank" class="text-white mx-3 fs-3"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.tiktok.com/@codexiatech" target="_blank" class="text-white mx-3 fs-3"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="text-white-50 mb-0"><small>&copy; 2025 Codexia. Tüm hakları saklıdır.</small></p>
+<!-- Footer -->
+<footer class="py-5">
+    <div class="container text-center">
+        <div class="mb-4">
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
         </div>
-    </footer>
+        <p class="text-white-50 small">&copy; 2025 CODEXIA. All rights reserved.</p>
+    </div>
+</footer>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
-
-
-
-
